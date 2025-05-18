@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "458783229645",
+    "firebase_url": "https://retailpos-77e0f-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "retailpos-77e0f",
+    "storage_bucket": "retailpos-77e0f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458783229645:android:7e0c7b7453ccbcf5414b84",
+        "android_client_info": {
+          "package_name": "com.example.retailpos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHX02utF77mvCmQ92zXdeU63ZCzVBz8Qw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

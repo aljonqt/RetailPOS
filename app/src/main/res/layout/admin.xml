@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:padding="16dp"
+            tools:context=".AdminActivity">
+
+            <TextView
+                android:id="@+id/adminDashboardTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Admin Dashboard"
+                android:textColor="@color/orange_primary"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/logoutButton"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constrainedWidth="true"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logoutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:padding="8dp"
+                android:textSize="12sp"
+                app:cornerRadius="8dp"
+                app:icon="@drawable/ic_logout"
+                app:iconGravity="textStart"
+                app:iconPadding="4dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Top Buttons Row -->
+            <LinearLayout
+                android:id="@+id/topButtonsRow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/adminDashboardTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/inventoryButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="Inventory"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="@color/orange_primary"
+                    app:cornerRadius="8dp"
+                    app:icon="@drawable/ic_inventory"
+                    app:iconGravity="textStart"
+                    app:iconTint="@android:color/white"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addProductButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add Product"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="@color/orange_primary"
+                    app:cornerRadius="8dp"
+                    app:icon="@drawable/ic_add_product"
+                    app:iconGravity="textStart"
+                    app:iconTint="@android:color/white"/>
+            </LinearLayout>
+
+            <!-- Sales Report Card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/salesReportCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:layout_constraintTop_toBottomOf="@id/topButtonsRow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sales (Daily)"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"/>
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/barChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        />
+
+
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Bottom Buttons Row -->
+            <LinearLayout
+                android:id="@+id/bottomButtonsRow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/salesReportCard"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addCashierButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="Add Cashier"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="@color/orange_primary"
+                    app:cornerRadius="8dp"
+                    app:icon="@drawable/ic_add_user"
+                    app:iconGravity="textStart"
+                    app:iconTint="@android:color/white"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/salesButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sales"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="@color/orange_primary"
+                    app:cornerRadius="8dp"
+                    app:icon="@drawable/ic_sales"
+                    app:iconGravity="textStart"
+                    app:iconTint="@android:color/white"/>
+            </LinearLayout>
+
+            <!-- Cashiers Table Card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cashiersTableCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="100dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:layout_constraintTop_toBottomOf="@id/bottomButtonsRow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Cashiers List"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:layout_marginBottom="8dp"/>
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fillViewport="true">
+
+                        <TableLayout
+                            android:id="@+id/cashiersTable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:stretchColumns="*">
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/orange_primary">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="ID"
+                                    android:textColor="@android:color/white"
+                                    android:padding="8dp"
+                                    android:textStyle="bold"
+                                    android:gravity="center"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Name"
+                                    android:textColor="@android:color/white"
+                                    android:padding="8dp"
+                                    android:textStyle="bold"
+                                    android:gravity="center"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Email"
+                                    android:textColor="@android:color/white"
+                                    android:padding="8dp"
+                                    android:textStyle="bold"
+                                    android:gravity="center"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Actions"
+                                    android:textColor="@android:color/white"
+                                    android:padding="8dp"
+                                    android:textStyle="bold"
+                                    android:gravity="center"/>
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="?android:attr/selectableItemBackground">
+
+                                <TextView
+                                    android:id="@+id/cashierId"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1"
+                                    android:padding="8dp"
+                                    android:gravity="center"/>
+
+                                <TextView
+                                    android:id="@+id/cashierName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="John Doe"
+                                    android:padding="8dp"
+                                    android:gravity="center"/>
+
+                                <TextView
+                                    android:id="@+id/cashierEmail"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="john@example.com"
+                                    android:padding="8dp"
+                                    android:gravity="center"/>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center">
+
+                                    <ImageButton
+                                        android:id="@+id/editCashierBtn"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/ic_edit"
+                                        android:contentDescription="Edit Cashier"
+                                        android:background="?attr/selectableItemBackgroundBorderless"
+                                        android:padding="4dp"/>
+
+                                    <ImageButton
+                                        android:id="@+id/deleteCashierBtn"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/ic_delete"
+                                        android:contentDescription="Delete Cashier"
+                                        android:background="?attr/selectableItemBackgroundBorderless"
+                                        android:padding="4dp"/>
+                                </LinearLayout>
+                            </TableRow>
+
+                        </TableLayout>
+                    </HorizontalScrollView>
+
+                    <TextView
+                        android:id="@+id/noCashiersText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No cashiers found. Add a cashier to get started."
+                        android:textColor="@android:color/darker_gray"
+                        android:gravity="center"
+                        android:padding="16dp"
+                        android:visibility="gone"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

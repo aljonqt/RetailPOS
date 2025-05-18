@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RetailPOS</string>
+    <string name="app_logo">POS logo</string>
+    <string name="delete_cashier_confirmation">Are you sure you want to delete %1$s?</string>
+    <string name="scanned_uid_format">Scanned UID: %s</string>
+    <string name="default_product_uid_text">Product UID will appear here</string>
+</resources>
