@@ -76,7 +76,7 @@ public class Inventory extends AppCompatActivity {
 
         TextView uidText = createTextCell(product.uid);
         TextView nameText = createTextCell(product.name);
-        TextView qtyText = createTextCell(String.valueOf(product.quantity));
+        TextView stockText = createTextCell(String.valueOf(product.stock));
         TextView priceText = createTextCell("₱" + product.price);
 
         ImageButton editButton = new ImageButton(this);
@@ -101,7 +101,7 @@ public class Inventory extends AppCompatActivity {
 
         row.addView(uidText);
         row.addView(nameText);
-        row.addView(qtyText);
+        row.addView(stockText);
         row.addView(priceText);
         row.addView(actionsLayout);
 

@@ -39,13 +39,10 @@ public class Purchase extends AppCompatActivity {
                 IntentResult scanResult = IntentIntegrator.parseActivityResult(result.getResultCode(), result.getData());
                 if (scanResult != null && scanResult.getContents() != null) {
                     String scannedId = scanResult.getContents();
-
-                    // Extract last segment if it's a URL
                     if (scannedId.contains("/")) {
                         scannedId = scannedId.substring(scannedId.lastIndexOf("/") + 1);
                     }
 
-                    // Validate the Firebase key before use
                     if (isValidFirebaseKey(scannedId)) {
                         addProductToPurchase(scannedId);
                     } else {
@@ -74,11 +71,11 @@ public class Purchase extends AppCompatActivity {
             if (purchaseList == null) purchaseList = new ArrayList<>();
         }
 
-        purchaseAdapter = new PurchaseAdapter(purchaseList);
+        productsRef = FirebaseDatabase.getInstance().getReference("products");
+
+        purchaseAdapter = new PurchaseAdapter(purchaseList, (position, newQuantity) -> updateTotalPrice(), this);
         purchaseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         purchaseRecyclerView.setAdapter(purchaseAdapter);
-
-        productsRef = FirebaseDatabase.getInstance().getReference("products");
 
         btnScan.setOnClickListener(v -> {
             IntentIntegrator integrator = new IntentIntegrator(Purchase.this);
@@ -127,18 +124,29 @@ public class Purchase extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Product product = snapshot.getValue(Product.class);
                 if (product != null) {
+                    if (product.stock <= 0) {
+                        Toast.makeText(Purchase.this, product.name + " is out of stock", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     boolean exists = false;
                     for (Product p : purchaseList) {
                         if (p.uid.equals(product.uid)) {
-                            p.quantity += 1;
                             exists = true;
+                            if (p.quantity < p.stock) {
+                                p.quantity++;
+                            } else {
+                                Toast.makeText(Purchase.this, "Only " + p.stock + " unit(s) available", Toast.LENGTH_SHORT).show();
+                            }
                             break;
                         }
                     }
+
                     if (!exists) {
                         product.quantity = 1;
                         purchaseList.add(product);
                     }
+
                     Collections.sort(purchaseList, (p1, p2) -> p1.name.compareToIgnoreCase(p2.name));
                     purchaseAdapter.notifyDataSetChanged();
                     updateTotalPrice();
@@ -184,11 +192,11 @@ public class Purchase extends AppCompatActivity {
             total += product.price * product.quantity;
         }
 
-        String cashierId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // ✅
+        String cashierId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         Map<String, Object> receiptData = new HashMap<>();
         receiptData.put("receiptId", receiptId);
-        receiptData.put("cashierId", cashierId); // ✅ Add cashierId here
+        receiptData.put("cashierId", cashierId);
         receiptData.put("cashierName", cashierName);
         receiptData.put("dateTime", dateTime);
         receiptData.put("products", productList);
@@ -201,13 +209,13 @@ public class Purchase extends AppCompatActivity {
                         int purchasedQuantity = product.quantity;
 
                         DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("products").child(productId);
-                        productRef.child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
+                        productRef.child("stock").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 Long currentStock = snapshot.getValue(Long.class);
                                 if (currentStock != null) {
                                     long newStock = currentStock - purchasedQuantity;
-                                    productRef.child("quantity").setValue(Math.max(newStock, 0));
+                                    productRef.child("stock").setValue(Math.max(newStock, 0));
                                 }
                             }
 
@@ -219,7 +227,6 @@ public class Purchase extends AppCompatActivity {
                     }
 
                     Toast.makeText(Purchase.this, "Purchase completed", Toast.LENGTH_SHORT).show();
-
                     Intent intent = new Intent(Purchase.this, Receipt.class);
                     intent.putParcelableArrayListExtra("purchasedItems", new ArrayList<>(purchaseList));
                     startActivity(intent);
@@ -228,11 +235,9 @@ public class Purchase extends AppCompatActivity {
                     purchaseAdapter.notifyDataSetChanged();
                     updateTotalPrice();
                 })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(Purchase.this, "Failed to save receipt", Toast.LENGTH_SHORT).show();
-                });
-    }
+                .addOnFailureListener(e -> Toast.makeText(Purchase.this, "Failed to save receipt", Toast.LENGTH_SHORT).show());
 
+    }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
@@ -241,8 +246,8 @@ public class Purchase extends AppCompatActivity {
     }
 
     private boolean isValidFirebaseKey(String key) {
-        return key != null && !key.contains(".") && !key.contains("#") &&
-                !key.contains("$") && !key.contains("[") &&
-                !key.contains("]") && !key.contains("/");
+        return key != null && !key.contains(".") && !key.contains("#")
+                && !key.contains("$") && !key.contains("[")
+                && !key.contains("]") && !key.contains("/");
     }
 }

@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class EditProductBottomSheet extends BottomSheetDialogFragment {
 
-    private TextInputEditText nameInput, quantityInput, priceInput;
+    private TextInputEditText nameInput, stockInput, priceInput;
     private MaterialButton updateButton;
     private Product product;
 
@@ -38,20 +38,20 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         nameInput = view.findViewById(R.id.editProductNameInput);
-        quantityInput = view.findViewById(R.id.editProductQuantityInput);
+        stockInput = view.findViewById(R.id.editProductStockInput);
         priceInput = view.findViewById(R.id.editProductPriceInput);
         updateButton = view.findViewById(R.id.updateProductButton);
 
         // Populate fields
         nameInput.setText(product.name);
-        quantityInput.setText(String.valueOf(product.quantity));
+        stockInput.setText(String.valueOf(product.stock));
         priceInput.setText(String.valueOf(product.price));
 
         updateButton.setOnClickListener(v -> updateProduct());
     }
 
     private void updateProduct() {
-        String quantityStr = quantityInput.getText().toString().trim();
+        String quantityStr = stockInput.getText().toString().trim();
         String priceStr = priceInput.getText().toString().trim();
 
         if (TextUtils.isEmpty(quantityStr) || TextUtils.isEmpty(priceStr)) {
@@ -59,10 +59,10 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
             return;
         }
 
-        int newQuantity;
+        int newStock;
         double newPrice;
         try {
-            newQuantity = Integer.parseInt(quantityStr);
+            newStock = Integer.parseInt(quantityStr);
             newPrice = Double.parseDouble(priceStr);
         } catch (NumberFormatException e) {
             Toast.makeText(getContext(), "Invalid input", Toast.LENGTH_SHORT).show();
@@ -73,7 +73,7 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
                 .getReference("products")
                 .child(product.uid);
 
-        productRef.child("quantity").setValue(newQuantity);
+        productRef.child("stock").setValue(newStock);
         productRef.child("price").setValue(newPrice)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(getContext(), "Product updated", Toast.LENGTH_SHORT).show();

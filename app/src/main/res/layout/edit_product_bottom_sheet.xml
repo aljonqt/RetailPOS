@@ -30,11 +30,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Quantity"
+        android:hint="Stock"
         android:layout_marginTop="12dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editProductQuantityInput"
+            android:id="@+id/editProductStockInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number" />

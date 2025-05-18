@@ -28,7 +28,7 @@ public class AddProduct extends BottomSheetDialogFragment {
 
     private static final int CAMERA_PERMISSION_REQUEST = 100;
     private TextView productUidText;
-    private TextInputEditText productNameInput, productQuantityInput, productPriceInput;
+    private TextInputEditText productNameInput, productStockInput, productPriceInput;
     private MaterialButton scanButton, saveProductButton;
 
     private DatabaseReference databaseReference;
@@ -40,7 +40,6 @@ public class AddProduct extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_product, container, false);
 
-        // Initialize Firebase Database
         databaseReference = FirebaseDatabase.getInstance().getReference("products");
 
         initializeViews(view);
@@ -52,7 +51,7 @@ public class AddProduct extends BottomSheetDialogFragment {
     private void initializeViews(View view) {
         productUidText = view.findViewById(R.id.productUidText);
         productNameInput = view.findViewById(R.id.productNameInput);
-        productQuantityInput = view.findViewById(R.id.productQuantityInput);
+        productStockInput = view.findViewById(R.id.productStockInput); // renamed from productQuantityInput
         productPriceInput = view.findViewById(R.id.productPriceInput);
         scanButton = view.findViewById(R.id.scanButton);
         saveProductButton = view.findViewById(R.id.saveProductButton);
@@ -121,8 +120,9 @@ public class AddProduct extends BottomSheetDialogFragment {
         Product product = new Product(
                 scannedBarcode,
                 productNameInput.getText().toString().trim(),
-                Integer.parseInt(productQuantityInput.getText().toString().trim()),
-                Double.parseDouble(productPriceInput.getText().toString().trim())
+                0, // quantity used in receipt only
+                Double.parseDouble(productPriceInput.getText().toString().trim()),
+                Integer.parseInt(productStockInput.getText().toString().trim()) // stock
         );
 
         saveProductToFirebase(product);
@@ -140,17 +140,17 @@ public class AddProduct extends BottomSheetDialogFragment {
             return false;
         }
 
-        if (productQuantityInput.getText().toString().trim().isEmpty()) {
-            productQuantityInput.setError("Quantity is required");
-            productQuantityInput.requestFocus();
+        if (productStockInput.getText().toString().trim().isEmpty()) {
+            productStockInput.setError("Stock is required");
+            productStockInput.requestFocus();
             return false;
         }
 
         try {
-            Integer.parseInt(productQuantityInput.getText().toString().trim());
+            Integer.parseInt(productStockInput.getText().toString().trim());
         } catch (NumberFormatException e) {
-            productQuantityInput.setError("Please enter a valid quantity");
-            productQuantityInput.requestFocus();
+            productStockInput.setError("Please enter a valid stock amount");
+            productStockInput.requestFocus();
             return false;
         }
 
@@ -177,7 +177,7 @@ public class AddProduct extends BottomSheetDialogFragment {
                     if (task.isSuccessful()) {
                         showToast("Product saved successfully");
                         clearForm();
-                        dismiss(); // Close bottom sheet after saving
+                        dismiss(); // Close bottom sheet
                     } else {
                         showToast("Failed to save product: " +
                                 task.getException().getMessage());
@@ -189,10 +189,10 @@ public class AddProduct extends BottomSheetDialogFragment {
         scannedBarcode = "";
         productUidText.setText(R.string.default_product_uid_text);
         productNameInput.setText("");
-        productQuantityInput.setText("");
+        productStockInput.setText("");
         productPriceInput.setText("");
         productNameInput.clearFocus();
-        productQuantityInput.clearFocus();
+        productStockInput.clearFocus();
         productPriceInput.clearFocus();
     }
 

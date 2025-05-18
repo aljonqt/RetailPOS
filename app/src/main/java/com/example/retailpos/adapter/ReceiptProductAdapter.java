@@ -25,7 +25,7 @@ public class ReceiptProductAdapter extends RecyclerView.Adapter<ReceiptProductAd
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_purchase_product, parent, false);
+                .inflate(R.layout.item_receipt_product, parent, false);
         return new ProductViewHolder(view);
     }
 
@@ -33,9 +33,9 @@ public class ReceiptProductAdapter extends RecyclerView.Adapter<ReceiptProductAd
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
 
-        holder.nameText.setText(product.name);
-        holder.quantityText.setText("Qty: " + product.quantity);
-        holder.priceText.setText("₱" + String.format("%.2f", product.price * product.quantity));
+        holder.tvProductName.setText(product.name);
+        holder.tvProductQuantity.setText("Qty: " + product.quantity);
+        holder.tvProductTotalPrice.setText("₱" + String.format("%.2f", product.price * product.quantity));
     }
 
     @Override
@@ -45,13 +45,13 @@ public class ReceiptProductAdapter extends RecyclerView.Adapter<ReceiptProductAd
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        TextView nameText, quantityText, priceText;
+        TextView tvProductName, tvProductQuantity, tvProductTotalPrice;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameText = itemView.findViewById(R.id.productName);
-            quantityText = itemView.findViewById(R.id.productQuantity);
-            priceText = itemView.findViewById(R.id.productPrice);
+            tvProductName = itemView.findViewById(R.id.tvProductName);
+            tvProductQuantity = itemView.findViewById(R.id.tvProductQuantity);
+            tvProductTotalPrice = itemView.findViewById(R.id.tvProductTotalPrice);
         }
     }
 }

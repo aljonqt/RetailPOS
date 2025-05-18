@@ -9,22 +9,24 @@ public class Product implements Parcelable {
     public int quantity;
     public double price;
     public long timestamp;
+    public int stock; // ✅ New field
 
     // Default constructor for Firebase
     public Product() {
         this.timestamp = System.currentTimeMillis();
     }
 
-    // Full constructor with UID
-    public Product(String uid, String name, int quantity, double price) {
+    // Full constructor with UID and stock
+    public Product(String uid, String name, int quantity, double price, int stock) {
         this.uid = uid;
         this.name = name;
         this.quantity = quantity;
         this.price = price;
+        this.stock = stock;
         this.timestamp = System.currentTimeMillis();
     }
 
-    // Lightweight constructor for receipt display
+    // Lightweight constructor for receipt display (stock not needed)
     public Product(String name, int quantity, double price) {
         this.name = name;
         this.quantity = quantity;
@@ -39,6 +41,7 @@ public class Product implements Parcelable {
         quantity = in.readInt();
         price = in.readDouble();
         timestamp = in.readLong();
+        stock = in.readInt(); // ✅ Read stock
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {
@@ -65,5 +68,6 @@ public class Product implements Parcelable {
         parcel.writeInt(quantity);
         parcel.writeDouble(price);
         parcel.writeLong(timestamp);
+        parcel.writeInt(stock); // ✅ Write stock
     }
 }

@@ -63,7 +63,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Qty"
+                        android:text="Stock"
                         android:textColor="@android:color/white"
                         android:padding="8dp"
                         android:textStyle="bold"
@@ -102,7 +102,7 @@
                         android:gravity="center" />
 
                     <TextView
-                        android:id="@+id/productQty"
+                        android:id="@+id/productStock"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10"

@@ -46,16 +46,16 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/productQuantityLayout"
+        android:id="@+id/productStockLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Quantity"
+        android:hint="Stock"
         app:layout_constraintTop_toBottomOf="@id/productNameLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/productQuantityInput"
+            android:id="@+id/productStockInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number" />
@@ -67,7 +67,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Price"
-        app:layout_constraintTop_toBottomOf="@id/productQuantityLayout"
+        app:layout_constraintTop_toBottomOf="@id/productStockLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 

@@ -88,7 +88,7 @@ public class ProductsFragment extends Fragment {
 
                     row.addView(createCell(product.uid));
                     row.addView(createCell(product.name));
-                    row.addView(createCell(String.valueOf(product.quantity)));
+                    row.addView(createCell(String.valueOf(product.stock)));
                     row.addView(createCell("₱" + String.format("%.2f", product.price)));
 
                     productsTable.addView(row);

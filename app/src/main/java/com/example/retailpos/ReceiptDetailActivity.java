@@ -115,12 +115,22 @@ public class ReceiptDetailActivity extends AppCompatActivity {
 
 
     private Product parseProduct(Map<String, Object> data) {
-        String name = (String) data.get("name");
-        long qty = data.get("quantity") instanceof Number ? ((Number) data.get("quantity")).longValue() : 0;
-        long price = data.get("price") instanceof Number ? ((Number) data.get("price")).longValue() : 0;
-        totalPrice += qty * price;
-        return new Product(null, name, (int) qty, (double) price);
+        String uid = data.get("uid") != null ? data.get("uid").toString() : null;
+        String name = data.get("name") != null ? data.get("name").toString() : "Unnamed";
+
+        int quantity = data.get("quantity") instanceof Number ? ((Number) data.get("quantity")).intValue() : 0;
+        double price = data.get("price") instanceof Number ? ((Number) data.get("price")).doubleValue() : 0.0;
+        int stock = data.get("stock") instanceof Number ? ((Number) data.get("stock")).intValue() : 0;
+        long timestamp = data.get("timestamp") instanceof Number ? ((Number) data.get("timestamp")).longValue() : System.currentTimeMillis();
+
+        totalPrice += quantity * price;
+
+        Product product = new Product(uid, name, quantity, price, stock);
+        product.timestamp = timestamp;
+
+        return product;
     }
+
 
     private void safeDrawText(Canvas canvas, String text, float x, float y, Paint paint) {
         if (text != null && !text.trim().isEmpty()) {
