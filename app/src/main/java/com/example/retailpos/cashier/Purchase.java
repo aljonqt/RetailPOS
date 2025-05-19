@@ -1,8 +1,7 @@
-package com.example.retailpos;
+package com.example.retailpos.cashier;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.retailpos.R;
+import com.example.retailpos.adapter.PurchaseAdapter;
 import com.example.retailpos.model.Product;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,12 +57,12 @@ public class Purchase extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.purchase);
+        setContentView(com.example.retailpos.R.layout.purchase);
 
-        purchaseRecyclerView = findViewById(R.id.purchaseRecyclerView);
-        btnScan = findViewById(R.id.btnScan);
-        btnBuyNow = findViewById(R.id.btnBuyNow);
-        tvTotal = findViewById(R.id.tvTotal);
+        purchaseRecyclerView = findViewById(com.example.retailpos.R.id.purchaseRecyclerView);
+        btnScan = findViewById(com.example.retailpos.R.id.btnScan);
+        btnBuyNow = findViewById(com.example.retailpos.R.id.btnBuyNow);
+        tvTotal = findViewById(com.example.retailpos.R.id.tvTotal);
 
         ImageButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> onBackPressed());

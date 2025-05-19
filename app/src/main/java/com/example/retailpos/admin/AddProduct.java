@@ -1,4 +1,4 @@
-package com.example.retailpos;
+package com.example.retailpos.admin;
 
 import android.Manifest;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.retailpos.R;
 import com.example.retailpos.model.Product;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;

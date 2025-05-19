@@ -1,4 +1,4 @@
-package com.example.retailpos;
+package com.example.retailpos.admin;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.retailpos.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;

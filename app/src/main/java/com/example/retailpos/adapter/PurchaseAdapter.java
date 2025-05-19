@@ -1,4 +1,4 @@
-package com.example.retailpos;
+package com.example.retailpos.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.retailpos.R;
 import com.example.retailpos.model.Product;
 
 import java.util.List;

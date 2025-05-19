@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.retailpos.R;
-import com.example.retailpos.ReceiptDetailActivity;
+import com.example.retailpos.cashier.ReceiptDetailActivity;
 import com.example.retailpos.adapter.ReceiptListAdapter;
 import com.example.retailpos.model.ReceiptItem;
 import com.example.retailpos.model.ReceiptHeader;

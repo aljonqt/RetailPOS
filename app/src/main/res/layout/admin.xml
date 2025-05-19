@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:padding="16dp"
-            tools:context=".AdminActivity">
+            tools:context=".admin.AdminActivity">
 
             <TextView
                 android:id="@+id/adminDashboardTitle"

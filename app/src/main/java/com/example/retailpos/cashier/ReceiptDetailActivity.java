@@ -1,4 +1,4 @@
-package com.example.retailpos;
+package com.example.retailpos.cashier;
 
 import android.content.ContentValues;
 import android.graphics.Canvas;
@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.retailpos.R;
 import com.example.retailpos.adapter.ReceiptProductAdapter;
 import com.example.retailpos.model.Product;
 import com.google.android.material.button.MaterialButton;

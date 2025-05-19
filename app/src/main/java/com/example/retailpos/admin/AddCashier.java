@@ -1,4 +1,4 @@
-package com.example.retailpos;
+package com.example.retailpos.admin;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,12 +9,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.retailpos.R;
 import com.example.retailpos.model.Cashier;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

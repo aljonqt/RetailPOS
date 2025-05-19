@@ -1,4 +1,4 @@
-package com.example.retailpos;
+package com.example.retailpos.admin;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -28,6 +27,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.retailpos.R;
 import com.example.retailpos.adapter.MonthAdapter;
 import com.example.retailpos.model.CashierSales;
 import com.example.retailpos.model.Receipt;

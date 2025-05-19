@@ -1,4 +1,4 @@
-package com.example.retailpos;
+package com.example.retailpos.admin;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -17,9 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.retailpos.Login;
+import com.example.retailpos.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -58,19 +59,19 @@ public class AdminActivity extends AppCompatActivity {
             return;
         }
 
-        setContentView(R.layout.admin);
+        setContentView(com.example.retailpos.R.layout.admin);
 
         cashierRef = FirebaseDatabase.getInstance().getReference("cashiers");
         receiptRef = FirebaseDatabase.getInstance().getReference("receipts");
 
-        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-        logoutButton = findViewById(R.id.logoutButton);
-        inventoryButton = findViewById(R.id.inventoryButton);
-        addProductButton = findViewById(R.id.addProductButton);
-        addCashierButton = findViewById(R.id.addCashierButton);
-        salesButton = findViewById(R.id.salesButton);
-        cashiersTable = findViewById(R.id.cashiersTable);
-        barChart = findViewById(R.id.barChart);
+        swipeRefreshLayout = findViewById(com.example.retailpos.R.id.swipeRefreshLayout);
+        logoutButton = findViewById(com.example.retailpos.R.id.logoutButton);
+        inventoryButton = findViewById(com.example.retailpos.R.id.inventoryButton);
+        addProductButton = findViewById(com.example.retailpos.R.id.addProductButton);
+        addCashierButton = findViewById(com.example.retailpos.R.id.addCashierButton);
+        salesButton = findViewById(com.example.retailpos.R.id.salesButton);
+        cashiersTable = findViewById(com.example.retailpos.R.id.cashiersTable);
+        barChart = findViewById(com.example.retailpos.R.id.barChart);
 
         int orangeColor = ContextCompat.getColor(this, android.R.color.holo_orange_dark);
         swipeRefreshLayout.setColorSchemeColors(orangeColor);
@@ -229,8 +230,8 @@ public class AdminActivity extends AppCompatActivity {
         emailView.setPadding(8, 8, 8, 8);
         row.addView(emailView);
 
-        View actionView = LayoutInflater.from(this).inflate(R.layout.cashier_actions, null);
-        ImageButton editBtn = actionView.findViewById(R.id.editCashierBtn);
+        View actionView = LayoutInflater.from(this).inflate(com.example.retailpos.R.layout.cashier_actions, null);
+        ImageButton editBtn = actionView.findViewById(com.example.retailpos.R.id.editCashierBtn);
         ImageButton deleteBtn = actionView.findViewById(R.id.deleteCashierBtn);
 
         editBtn.setOnClickListener(v -> {

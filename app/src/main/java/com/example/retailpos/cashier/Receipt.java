@@ -1,4 +1,4 @@
-package com.example.retailpos;
+package com.example.retailpos.cashier;
 
 import android.Manifest;
 import android.content.ContentValues;
@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +21,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.retailpos.R;
+import com.example.retailpos.adapter.ReceiptAdapter;
 import com.example.retailpos.model.Product;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,14 +59,14 @@ public class Receipt extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.receipt);
+        setContentView(com.example.retailpos.R.layout.receipt);
 
         // UI initialization
-        tvCashierName = findViewById(R.id.tvCashierName);
-        tvDateTime = findViewById(R.id.tvDateTime);
-        tvTotalPrice = findViewById(R.id.tvTotalPrice);
-        rvPurchasedList = findViewById(R.id.rvPurchasedList);
-        btnDone = findViewById(R.id.btnDone);
+        tvCashierName = findViewById(com.example.retailpos.R.id.tvCashierName);
+        tvDateTime = findViewById(com.example.retailpos.R.id.tvDateTime);
+        tvTotalPrice = findViewById(com.example.retailpos.R.id.tvTotalPrice);
+        rvPurchasedList = findViewById(com.example.retailpos.R.id.rvPurchasedList);
+        btnDone = findViewById(com.example.retailpos.R.id.btnDone);
         btnDownload = findViewById(R.id.btnDownload);
 
         btnDownload.setEnabled(false); // Disable until data is ready

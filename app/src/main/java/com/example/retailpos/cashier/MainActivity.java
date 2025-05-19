@@ -1,4 +1,4 @@
-package com.example.retailpos;
+package com.example.retailpos.cashier;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.retailpos.Login;
+import com.example.retailpos.R;
 import com.example.retailpos.fragments.ProductsFragment;
 import com.example.retailpos.fragments.TransactionsFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

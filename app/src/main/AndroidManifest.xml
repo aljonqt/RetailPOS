@@ -23,13 +23,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ReceiptDetailActivity"
+            android:name=".cashier.ReceiptDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".Receipt"
+            android:name=".cashier.Receipt"
             android:exported="false" />
         <activity
-            android:name=".Purchase"
+            android:name=".cashier.Purchase"
             android:exported="false" />
         <activity
             android:name=".fragments.TransactionsFragment"
@@ -51,25 +51,25 @@
             android:name=".bottomsheet.EditProductBottomSheet"
             android:exported="false" /> <!-- Other App Activities -->
         <activity
-            android:name=".Sales"
+            android:name=".admin.Sales"
             android:exported="false" />
         <activity
-            android:name=".Inventory"
+            android:name=".admin.Inventory"
             android:exported="false" />
         <activity
-            android:name=".AddProduct"
+            android:name=".admin.AddProduct"
             android:exported="false" />
         <activity
-            android:name=".AddCashier"
+            android:name=".admin.AddCashier"
             android:exported="false" />
         <activity
-            android:name=".AdminActivity"
+            android:name=".admin.AdminActivity"
             android:exported="false" />
         <activity
             android:name=".Login"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".cashier.MainActivity"
             android:exported="false" /> <!-- Firebase Offline Persistence -->
         <meta-data
             android:name="firebase_database_persistence_enabled"

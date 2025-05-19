@@ -1,4 +1,4 @@
-package com.example.retailpos;
+package com.example.retailpos.admin;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.retailpos.R;
 import com.example.retailpos.bottomsheet.EditProductBottomSheet;
 import com.example.retailpos.model.Product;
 import com.google.firebase.database.DataSnapshot;
