@@ -11,9 +11,9 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="?attr/colorOnPrimary"
         android:padding="8dp"
-        android:background="@android:color/holo_orange_dark"
+        android:background="?attr/colorPrimary"
         android:text="May 2025" />
 
     <androidx.recyclerview.widget.RecyclerView

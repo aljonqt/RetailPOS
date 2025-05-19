@@ -5,15 +5,13 @@
     android:padding="12dp"
     android:clickable="true"
     android:focusable="true"
-    android:elevation="2dp"
-    android:background="@drawable/receipt_item_background"
-    android:layout_marginBottom="8dp">
+    android:background="?attr/colorSurface">
 
-    <!-- Row for Cashier Name and Total Sales -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="?attr/colorSurface">
 
         <TextView
             android:id="@+id/tvCashierName"
@@ -23,7 +21,7 @@
             android:text="Jane Smith"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="#000000" />
+            android:textColor="?attr/colorOnSurface" />
 
         <TextView
             android:id="@+id/tvTotalSales"
@@ -31,7 +29,14 @@
             android:layout_height="wrap_content"
             android:text="Total: ₱0.00"
             android:textSize="14sp"
-            android:textColor="#444444" />
+            android:textColor="?attr/colorOnSurface" />
     </LinearLayout>
+
+    <!-- Divider line -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="?attr/colorOutline" />
 
 </LinearLayout>

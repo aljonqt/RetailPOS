@@ -92,7 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Cashier"
-        android:textColor="@android:color/white"
+        android:textColor="?attr/colorOnPrimary"
         android:backgroundTint="@color/orange_primary"
         app:cornerRadius="8dp"/>
 </LinearLayout>

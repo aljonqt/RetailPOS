@@ -1,14 +1,17 @@
 package com.example.retailpos.cashier;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -34,12 +37,23 @@ public class MainActivity extends AppCompatActivity {
     private Button logoutButton;
     private ImageButton btnProducts, btnTransactions;
     private FloatingActionButton btnPurchase;
+    private Switch themeSwitch;
 
     private FirebaseAuth mAuth;
     private DatabaseReference databaseRef;
 
+    private SharedPreferences preferences;
+    private static final String PREF_NAME = "theme_pref";
+    private static final String KEY_NIGHT_MODE = "night_mode";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Load theme preference before onCreate
+        preferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        boolean isNightMode = preferences.getBoolean(KEY_NIGHT_MODE, false);
+        AppCompatDelegate.setDefaultNightMode(isNightMode ?
+                AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -50,22 +64,47 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Initialize views
         greetingText = findViewById(R.id.greetingText);
         logoutButton = findViewById(R.id.logoutButton);
         btnProducts = findViewById(R.id.btnProducts);
         btnPurchase = findViewById(R.id.btnPurchase);
         btnTransactions = findViewById(R.id.btnTransactions);
+        themeSwitch = findViewById(R.id.themeSwitch);
 
         mAuth = FirebaseAuth.getInstance();
         databaseRef = FirebaseDatabase.getInstance().getReference();
 
+        // Set switch state
+        themeSwitch.setChecked(isNightMode);
+
+        // Fix blinking issue by restarting activity with no animation
+        themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(KEY_NIGHT_MODE, isChecked);
+            editor.apply();
+
+            AppCompatDelegate.setDefaultNightMode(isChecked ?
+                    AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+
+            // Restart activity without animation
+            Intent intent = getIntent();
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            finish();
+            overridePendingTransition(0, 0); // No animation on finish
+            startActivity(intent);
+            overridePendingTransition(0, 0); // No animation on start
+        });
+
+        // Load greeting
         displayGreetingFromDatabase();
 
-        // Load ProductsFragment by default
+        // Load initial fragment
         if (savedInstanceState == null) {
             loadFragment(new ProductsFragment());
         }
 
+        // Logout logic
         logoutButton.setOnClickListener(v -> {
             mAuth.signOut();
             Toast.makeText(MainActivity.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
@@ -75,13 +114,9 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
 
+        // Navigation
         btnProducts.setOnClickListener(v -> loadFragment(new ProductsFragment()));
-
-        btnPurchase.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, Purchase.class);
-            startActivity(intent);
-        });
-
+        btnPurchase.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, Purchase.class)));
         btnTransactions.setOnClickListener(v -> loadFragment(new TransactionsFragment()));
     }
 

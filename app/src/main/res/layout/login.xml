@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@android:color/white">
+    android:background="?android:colorBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     android:importantForAutofill="no"
-                    android:textColor="@android:color/black"
+                    android:textColor="?colorOnBackground"
                     android:textColorHint="@color/gray_light"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,10 +104,10 @@
                     android:id="@+id/passwordInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
                     android:importantForAutofill="no"
-                    android:textColor="@android:color/black"
-                    android:textColorHint="@color/gray_light"/>
+                    android:inputType="textPassword"
+                    android:textColor="?colorOnBackground"
+                    android:textColorHint="@color/gray_light" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -121,14 +121,14 @@
             android:backgroundTint="@color/orange_primary"
             android:text="LOGIN"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/android:colorBackground"
             android:textSize="16sp"
             android:letterSpacing="0.05"
             app:cornerRadius="8dp"
             app:icon="@drawable/ic_login"
             app:iconGravity="textStart"
             app:iconPadding="8dp"
-            app:iconTint="@android:color/white"
+            app:iconTint="?attr/android:colorBackground"
             app:layout_constraintEnd_toEndOf="@id/inputFieldsContainer"
             app:layout_constraintStart_toStartOf="@id/inputFieldsContainer"
             app:layout_constraintTop_toBottomOf="@id/inputFieldsContainer" />

@@ -5,7 +5,8 @@
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ProductsFragment">
+    tools:context=".fragments.ProductsFragment"
+    android:background="?android:colorBackground">
 
     <LinearLayout
         android:id="@+id/main"
@@ -21,7 +22,7 @@
             android:text="Products List"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
+            android:textColor="?colorOnBackground"
             android:layout_marginBottom="8dp" />
 
         <!-- Scrollable Table -->
@@ -40,13 +41,13 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/orange_primary">
+                    android:background="?attr/colorPrimary">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="UID"
-                        android:textColor="@android:color/white"
+                        android:textColor="?attr/colorOnPrimary"
                         android:padding="8dp"
                         android:textStyle="bold"
                         android:gravity="center" />
@@ -55,7 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Name"
-                        android:textColor="@android:color/white"
+                        android:textColor="?attr/colorOnPrimary"
                         android:padding="8dp"
                         android:textStyle="bold"
                         android:gravity="center" />
@@ -64,7 +65,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Stock"
-                        android:textColor="@android:color/white"
+                        android:textColor="?attr/colorOnPrimary"
                         android:padding="8dp"
                         android:textStyle="bold"
                         android:gravity="center" />
@@ -73,7 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Price"
-                        android:textColor="@android:color/white"
+                        android:textColor="?attr/colorOnPrimary"
                         android:padding="8dp"
                         android:textStyle="bold"
                         android:gravity="center" />
@@ -90,6 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="00123"
+                        android:textColor="?colorOnBackground"
                         android:padding="8dp"
                         android:gravity="center" />
 
@@ -98,6 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sample Product"
+                        android:textColor="?colorOnBackground"
                         android:padding="8dp"
                         android:gravity="center" />
 
@@ -106,6 +109,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10"
+                        android:textColor="?colorOnBackground"
                         android:padding="8dp"
                         android:gravity="center" />
 
@@ -114,6 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="₱50.00"
+                        android:textColor="?colorOnBackground"
                         android:padding="8dp"
                         android:gravity="center" />
                 </TableRow>

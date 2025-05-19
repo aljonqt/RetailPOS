@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -38,6 +40,7 @@ public class AdminActivity extends AppCompatActivity {
     private static final String PREF_NAME = "AdminPrefs";
     private static final String KEY_ADMIN_EMAIL = "admin_email";
     private static final String KEY_ADMIN_PASSWORD = "admin_password";
+    private static final String KEY_NIGHT_MODE = "night_mode";
 
     private MaterialButton logoutButton, inventoryButton, addProductButton, addCashierButton, salesButton;
     private TableLayout cashiersTable;
@@ -46,32 +49,60 @@ public class AdminActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeRefreshLayout;
     private FirebaseAuth mAuth;
     private BarChart barChart;
+    private Switch themeSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Load theme setting before super.onCreate
+        SharedPreferences preferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        boolean isNightMode = preferences.getBoolean(KEY_NIGHT_MODE, false);
+        AppCompatDelegate.setDefaultNightMode(isNightMode ?
+                AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.admin);
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
         if (currentUser == null) {
             redirectToLogin();
             return;
         }
 
-        setContentView(com.example.retailpos.R.layout.admin);
+        // Init views
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        logoutButton = findViewById(R.id.logoutButton);
+        inventoryButton = findViewById(R.id.inventoryButton);
+        addProductButton = findViewById(R.id.addProductButton);
+        addCashierButton = findViewById(R.id.addCashierButton);
+        salesButton = findViewById(R.id.salesButton);
+        cashiersTable = findViewById(R.id.cashiersTable);
+        barChart = findViewById(R.id.barChart);
+        themeSwitch = findViewById(R.id.themeSwitch); // Ensure you added this in XML
 
+        // Setup theme switch state
+        themeSwitch.setChecked(isNightMode);
+        themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(KEY_NIGHT_MODE, isChecked);
+            editor.apply();
+
+            AppCompatDelegate.setDefaultNightMode(isChecked ?
+                    AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+
+            // Restart activity to apply theme
+            Intent intent = getIntent();
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+        });
+
+        // Firebase
         cashierRef = FirebaseDatabase.getInstance().getReference("cashiers");
         receiptRef = FirebaseDatabase.getInstance().getReference("receipts");
-
-        swipeRefreshLayout = findViewById(com.example.retailpos.R.id.swipeRefreshLayout);
-        logoutButton = findViewById(com.example.retailpos.R.id.logoutButton);
-        inventoryButton = findViewById(com.example.retailpos.R.id.inventoryButton);
-        addProductButton = findViewById(com.example.retailpos.R.id.addProductButton);
-        addCashierButton = findViewById(com.example.retailpos.R.id.addCashierButton);
-        salesButton = findViewById(com.example.retailpos.R.id.salesButton);
-        cashiersTable = findViewById(com.example.retailpos.R.id.cashiersTable);
-        barChart = findViewById(com.example.retailpos.R.id.barChart);
 
         int orangeColor = ContextCompat.getColor(this, android.R.color.holo_orange_dark);
         swipeRefreshLayout.setColorSchemeColors(orangeColor);

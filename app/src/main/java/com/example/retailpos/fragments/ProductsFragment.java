@@ -1,6 +1,8 @@
 package com.example.retailpos.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +53,6 @@ public class ProductsFragment extends Fragment {
         productsTable = view.findViewById(R.id.productsTable);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 
-        // ✅ Correctly set the spinner color using ContextCompat
         int orange = ContextCompat.getColor(requireContext(), android.R.color.holo_orange_dark);
         swipeRefreshLayout.setColorSchemeColors(orange);
 
@@ -59,16 +60,27 @@ public class ProductsFragment extends Fragment {
 
         loadProducts();
 
-        swipeRefreshLayout.setOnRefreshListener(() -> loadProducts());
+        swipeRefreshLayout.setOnRefreshListener(this::loadProducts);
     }
 
     private void loadProducts() {
-        swipeRefreshLayout.setRefreshing(true); // Show refresh indicator
+        swipeRefreshLayout.setRefreshing(true);
 
         productsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                productsTable.removeViews(1, Math.max(0, productsTable.getChildCount() - 1)); // Keep header row
+                if (!isAdded()) {
+                    swipeRefreshLayout.setRefreshing(false);
+                    return;
+                }
+
+                Context context = getContext();
+                if (context == null) {
+                    swipeRefreshLayout.setRefreshing(false);
+                    return;
+                }
+
+                productsTable.removeViews(1, Math.max(0, productsTable.getChildCount() - 1));
 
                 List<Product> productList = new ArrayList<>();
 
@@ -80,36 +92,37 @@ public class ProductsFragment extends Fragment {
                     }
                 }
 
-                // Sort alphabetically by name
                 Collections.sort(productList, Comparator.comparing(p -> p.name != null ? p.name.toLowerCase() : ""));
 
                 for (Product product : productList) {
-                    TableRow row = new TableRow(getContext());
+                    TableRow row = new TableRow(context);
 
-                    row.addView(createCell(product.uid));
-                    row.addView(createCell(product.name));
-                    row.addView(createCell(String.valueOf(product.stock)));
-                    row.addView(createCell("₱" + String.format("%.2f", product.price)));
+                    row.addView(createCell(context, product.uid));
+                    row.addView(createCell(context, product.name));
+                    row.addView(createCell(context, String.valueOf(product.stock)));
+                    row.addView(createCell(context, "₱" + String.format("%.2f", product.price)));
 
                     productsTable.addView(row);
                 }
 
-                swipeRefreshLayout.setRefreshing(false); // Hide refresh indicator
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                swipeRefreshLayout.setRefreshing(false); // Hide refresh on error
-                Toast.makeText(getContext(), "Failed to load products", Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(false);
+                if (getContext() != null) {
+                    Toast.makeText(getContext(), "Failed to load products", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
-    private TextView createCell(String text) {
-        TextView cell = new TextView(getContext());
+    private TextView createCell(Context context, String text) {
+        TextView cell = new TextView(context);
         cell.setText(text);
         cell.setPadding(8, 8, 8, 8);
-        cell.setGravity(android.view.Gravity.CENTER);
+        cell.setGravity(Gravity.CENTER);
         return cell;
     }
 }

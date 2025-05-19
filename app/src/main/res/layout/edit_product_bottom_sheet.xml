@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="@android:color/white">
+    android:background="?attr/colorSurface">
 
     <TextView
         android:layout_width="match_parent"
@@ -13,6 +13,7 @@
         android:text="Edit Product"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="?attr/colorOnSurface"
         android:paddingBottom="16dp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -58,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Update Product"
-        android:textColor="@color/white"
+        android:textColor="?attr/colorOnPrimary"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:layout_marginTop="24dp" />
 </LinearLayout>

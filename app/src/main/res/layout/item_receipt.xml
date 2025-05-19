@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ID: -"
+        android:textColor="?attr/colorOnSurface"
         android:textStyle="bold"
         android:textSize="16sp" />
 
@@ -19,6 +20,7 @@
         android:id="@+id/dateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="?attr/colorOnSurface"
         android:text="Date"
         android:textSize="14sp" />
 
@@ -26,6 +28,7 @@
         android:id="@+id/timeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="?attr/colorOnSurface"
         android:text="Time"
         android:textSize="14sp" />
 </LinearLayout>
