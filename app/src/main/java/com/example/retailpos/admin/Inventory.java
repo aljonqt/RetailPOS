@@ -2,9 +2,12 @@ package com.example.retailpos.admin;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -36,7 +39,7 @@ public class Inventory extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.inventory);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainScroll), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -55,7 +58,7 @@ public class Inventory extends AppCompatActivity {
         databaseReference.orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                productsTable.removeViews(1, productsTable.getChildCount() - 1);
+                productsTable.removeViews(1, productsTable.getChildCount() - 1); // remove all but header row
                 for (DataSnapshot data : snapshot.getChildren()) {
                     Product product = data.getValue(Product.class);
                     if (product != null) {
@@ -75,15 +78,24 @@ public class Inventory extends AppCompatActivity {
         TableRow row = new TableRow(this);
         row.setBackgroundResource(android.R.drawable.list_selector_background);
 
-        TextView uidText = createTextCell(product.uid);
-        TextView nameText = createTextCell(product.name);
-        TextView stockText = createTextCell(String.valueOf(product.stock));
-        TextView priceText = createTextCell("₱" + product.price);
+        // Create text cells with consistent style
+        TextView uidText = createStyledTextCell(product.uid);
+        TextView nameText = createStyledTextCell(product.name);
+        TextView stockText = createStyledTextCell(String.valueOf(product.stock));
+        TextView priceText = createStyledTextCell("₱" + product.price);
+
+        // Action buttons inside a horizontal LinearLayout
+        LinearLayout actionsLayout = new LinearLayout(this);
+        actionsLayout.setOrientation(LinearLayout.HORIZONTAL);
+        actionsLayout.setGravity(Gravity.CENTER);
+        actionsLayout.setPadding(8, 8, 8, 8);
+        actionsLayout.setMinimumWidth(100);
 
         ImageButton editButton = new ImageButton(this);
         editButton.setImageResource(R.drawable.ic_edit);
         editButton.setBackgroundResource(android.R.color.transparent);
-        editButton.setPadding(8, 8, 8, 8);
+        editButton.setContentDescription("Edit");
+        editButton.setPadding(16, 16, 16, 16);
         editButton.setOnClickListener(v -> {
             EditProductBottomSheet bottomSheet = new EditProductBottomSheet(product);
             bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());
@@ -92,14 +104,14 @@ public class Inventory extends AppCompatActivity {
         ImageButton deleteButton = new ImageButton(this);
         deleteButton.setImageResource(R.drawable.ic_delete);
         deleteButton.setBackgroundResource(android.R.color.transparent);
-        deleteButton.setPadding(8, 8, 8, 8);
+        deleteButton.setContentDescription("Delete");
+        deleteButton.setPadding(16, 16, 16, 16);
         deleteButton.setOnClickListener(v -> showDeleteConfirmationDialog(product));
 
-        TableRow.LayoutParams buttonLayoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-        TableRow actionsLayout = new TableRow(this);
-        actionsLayout.addView(editButton, buttonLayoutParams);
-        actionsLayout.addView(deleteButton, buttonLayoutParams);
+        actionsLayout.addView(editButton);
+        actionsLayout.addView(deleteButton);
 
+        // Add all views to the row
         row.addView(uidText);
         row.addView(nameText);
         row.addView(stockText);
@@ -107,6 +119,16 @@ public class Inventory extends AppCompatActivity {
         row.addView(actionsLayout);
 
         productsTable.addView(row);
+    }
+
+    private TextView createStyledTextCell(String text) {
+        TextView tv = new TextView(this);
+        tv.setText(text);
+        tv.setPadding(12, 12, 12, 12);
+        tv.setGravity(Gravity.CENTER);
+        tv.setMinWidth(100);
+        tv.setTextSize(16);
+        return tv;
     }
 
     private void showDeleteConfirmationDialog(Product product) {
@@ -120,13 +142,5 @@ public class Inventory extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
-    }
-
-    private TextView createTextCell(String text) {
-        TextView tv = new TextView(this);
-        tv.setText(text);
-        tv.setPadding(8, 8, 8, 8);
-        tv.setGravity(View.TEXT_ALIGNMENT_CENTER);
-        return tv;
     }
 }
